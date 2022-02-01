@@ -1,0 +1,11 @@
+BookingWorker:
+  handler: src/lambdas/worker/index.handler
+  events:
+    - sqs:
+        arn:
+          Fn::GetAtt:
+            - BookingQueue
+            - Arn
+        batchSize: 10
+        maximumBatchingWindow: 10
+        functionResponseType: ReportBatchItemFailures
